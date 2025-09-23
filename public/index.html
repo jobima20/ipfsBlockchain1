@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain File Storage Demo</title>
+    <meta name="description" content="Enterprise-grade blockchain file storage with Storj and Arweave integration">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🔗</span>
+                    <h1>Blockchain File Storage</h1>
+                </div>
+                <div class="status-indicators">
+                    <div class="status-item" id="storj-status">
+                        <span class="status-dot"></span>
+                        <span>Storj</span>
+                    </div>
+                    <div class="status-item" id="arweave-status">
+                        <span class="status-dot"></span>
+                        <span>Arweave</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="section-header">
+                    <h2>Upload Files</h2>
+                    <p>Upload files to distributed storage with automatic encryption and redundancy</p>
+                </div>
+
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-content">
+                        <div class="upload-icon">📁</div>
+                        <h3>Drag & Drop Files Here</h3>
+                        <p>or click to browse files</p>
+                        <input type="file" id="file-input" multiple hidden>
+                        <button class="btn btn-primary" id="browse-btn">Browse Files</button>
+                    </div>
+                </div>
+
+                <div class="upload-options">
+                    <div class="option-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="permanent-storage">
+                            <span class="checkmark"></span>
+                            Permanent Storage (Arweave)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="critical-files">
+                            <span class="checkmark"></span>
+                            Critical Files (Dual Backup)
+                        </label>
+                    </div>
+                    <div class="option-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enable-compression" checked>
+                            <span class="checkmark"></span>
+                            Enable Compression
+                        </label>
+                    </div>
+                </div>
+
+                <div class="upload-queue" id="upload-queue" style="display: none;">
+                    <h3>Upload Queue</h3>
+                    <div class="queue-items" id="queue-items"></div>
+                </div>
+            </section>
+
+            <!-- Performance Dashboard -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Performance Dashboard</h2>
+                    <p>Real-time system performance and storage statistics</p>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Total Files</h3>
+                            <span class="metric-icon">📄</span>
+                        </div>
+                        <div class="metric-value" id="total-files">0</div>
+                        <div class="metric-change">+0 today</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Storage Used</h3>
+                            <span class="metric-icon">💾</span>
+                        </div>
+                        <div class="metric-value" id="storage-used">0 MB</div>
+                        <div class="metric-change">Across all providers</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Upload Speed</h3>
+                            <span class="metric-icon">⬆️</span>
+                        </div>
+                        <div class="metric-value" id="upload-speed">0 MB/s</div>
+                        <div class="metric-change">Average speed</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h3>Success Rate</h3>
+                            <span class="metric-icon">✅</span>
+                        </div>
+                        <div class="metric-value" id="success-rate">100%</div>
+                        <div class="metric-change">Last 24 hours</div>
+                    </div>
+                </div>
+
+                <div class="provider-stats">
+                    <h3>Provider Performance</h3>
+                    <div class="provider-grid" id="provider-stats">
+                        <!-- Provider stats will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- File Management -->
+            <section class="files-section">
+                <div class="section-header">
+                    <h2>File Management</h2>
+                    <p>Browse, download, and manage your uploaded files</p>
+                </div>
+
+                <div class="file-controls">
+                    <div class="search-box">
+                        <input type="text" id="file-search" placeholder="Search files...">
+                        <button class="btn btn-secondary" id="search-btn">🔍</button>
+                    </div>
+                    <div class="filter-controls">
+                        <select id="category-filter">
+                            <option value="">All Categories</option>
+                            <option value="document">Documents</option>
+                            <option value="image">Images</option>
+                            <option value="video">Videos</option>
+                            <option value="audio">Audio</option>
+                            <option value="archive">Archives</option>
+                        </select>
+                        <button class="btn btn-secondary" id="refresh-files">Refresh</button>
+                    </div>
+                </div>
+
+                <div class="files-list" id="files-list">
+                    <div class="files-header">
+                        <div class="file-col-name">Name</div>
+                        <div class="file-col-size">Size</div>
+                        <div class="file-col-date">Modified</div>
+                        <div class="file-col-provider">Provider</div>
+                        <div class="file-col-actions">Actions</div>
+                    </div>
+                    <div class="files-body" id="files-body">
+                        <div class="loading-message">Loading files...</div>
+                    </div>
+                </div>
+
+                <div class="pagination" id="pagination" style="display: none;">
+                    <button class="btn btn-secondary" id="prev-page">← Previous</button>
+                    <span class="page-info" id="page-info">Page 1 of 1</span>
+                    <button class="btn btn-secondary" id="next-page">Next →</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Notifications -->
+    <div class="notifications" id="notifications"></div>
+
+    <!-- File Preview Modal -->
+    <div class="modal" id="preview-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="preview-title">File Preview</h3>
+                <button class="modal-close" id="close-preview">&times;</button>
+            </div>
+            <div class="modal-body" id="preview-body">
+                <!-- Preview content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Modal -->
+    <div class="modal" id="progress-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Progress</h3>
+            </div>
+            <div class="modal-body">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">Preparing upload...</div>
+                </div>
+                <div class="upload-details" id="upload-details">
+                    <!-- Upload details will be shown here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 Blockchain File Storage Demo. Built with enterprise-grade security and performance.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" id="export-logs">Export Logs</a>
+                    <a href="#" id="system-status">System Status</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

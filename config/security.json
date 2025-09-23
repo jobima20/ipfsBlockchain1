@@ -1,0 +1,57 @@
+{
+  "encryption": {
+    "algorithm": "aes-256-gcm",
+    "keyLength": 32,
+    "ivLength": 16,
+    "tagLength": 16,
+    "pbkdf2": {
+      "iterations": 100000,
+      "saltLength": 16
+    }
+  },
+  "authentication": {
+    "jwtAlgorithm": "HS256",
+    "tokenExpiry": "24h",
+    "refreshTokenExpiry": "30d",
+    "maxLoginAttempts": 5,
+    "lockoutDuration": 900000
+  },
+  "rateLimiting": {
+    "windowMs": 60000,
+    "maxRequests": 100,
+    "skipSuccessfulRequests": false,
+    "skipFailedRequests": false
+  },
+  "fileValidation": {
+    "maxFileSize": 1073741824,
+    "allowedMimeTypes": ["*"],
+    "blockedExtensions": [
+      ".exe", ".bat", ".cmd", ".com", ".pif", 
+      ".scr", ".vbs", ".vbe", ".js", ".jar",
+      ".msi", ".msp", ".hta", ".cpl", ".dll"
+    ],
+    "scanForMagicBytes": true,
+    "quarantineDirectory": "./quarantine"
+  },
+  "headers": {
+    "contentSecurityPolicy": {
+      "defaultSrc": ["'self'"],
+      "styleSrc": ["'self'", "'unsafe-inline'"],
+      "scriptSrc": ["'self'"],
+      "imgSrc": ["'self'", "data:", "https:"],
+      "connectSrc": ["'self'"]
+    },
+    "hsts": {
+      "maxAge": 31536000,
+      "includeSubDomains": true,
+      "preload": true
+    }
+  },
+  "monitoring": {
+    "logLevel": "info",
+    "auditTrail": true,
+    "securityEvents": true,
+    "performanceMetrics": true,
+    "errorTracking": true
+  }
+}

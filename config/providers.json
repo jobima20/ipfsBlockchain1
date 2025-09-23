@@ -1,0 +1,54 @@
+{
+  "storj": {
+    "name": "Storj",
+    "type": "primary",
+    "description": "Decentralized cloud storage with S3 compatibility",
+    "features": [
+      "Unlimited storage capacity",
+      "S3-compatible API",
+      "End-to-end encryption",
+      "Global distribution",
+      "High availability"
+    ],
+    "pricing": {
+      "storage": "$4.00/TB/month",
+      "egress": "$7.00/TB",
+      "minimum": "$5.00/month"
+    },
+    "limits": {
+      "maxFileSize": "1TB",
+      "maxConcurrentUploads": 10,
+      "timeout": 300000
+    },
+    "endpoints": {
+      "gateway": "https://gateway.storjshare.io",
+      "satellite": "https://www.storj.io"
+    }
+  },
+  "arweave": {
+    "name": "Arweave",
+    "type": "permanent",
+    "description": "Permanent data storage blockchain",
+    "features": [
+      "Permanent storage (200+ years)",
+      "One-time payment model",
+      "Blockchain-based",
+      "Cryptographic proof",
+      "Global replication"
+    ],
+    "pricing": {
+      "storage": "$5-8/GB one-time",
+      "egress": "Free",
+      "minimum": "None"
+    },
+    "limits": {
+      "maxFileSize": "10GB per transaction",
+      "freeViaDemoPlatform": "200MB",
+      "timeout": 600000
+    },
+    "endpoints": {
+      "gateway": "https://arweave.net",
+      "demo_gateway": "https://endpoint.4everland.co"
+    }
+  }
+}
